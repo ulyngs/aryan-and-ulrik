@@ -6,14 +6,32 @@ format:
 editor: visual
 ---
 
-# Test!
+```{r}
+#| include: false
+library(tidyverse)
+library(tidytext)
 
-# Something else
+bhaga_text <- tibble(
+  text = read_lines("data/sa_bhagavadgItA-4comm.txt")
+)
 
-Check out our cool plot in Figure @fig-pressureplot!
+bhaga_text
+```
+
+# 1 The tidy text format
+
+Here is a little plot the words that occur more than 600 times in Bhagadvagita -- Figure @fig-line-plot
 
 ```{r}
-#| label: fig-pressureplot
-#| fig-cap: "This is the greatest plot in the world!"
-plot(pressure)
+#| label: fig-word-count
+#| fig-cap: "The words with count larger than 600 in Bhagadvagita! Yay!"
+
+bhaga_text |> 
+  unnest_tokens(word, text) |> 
+  count(word, sort = TRUE) |> 
+  filter(n > 600) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word)) +
+  geom_col() +
+  labs(y = NULL)
 ```

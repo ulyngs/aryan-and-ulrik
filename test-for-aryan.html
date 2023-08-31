@@ -79,8 +79,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#test" id="toc-test" class="nav-link active" data-scroll-target="#test">Test!</a></li>
-  <li><a href="#something-else" id="toc-something-else" class="nav-link" data-scroll-target="#something-else">Something else</a></li>
+  <li><a href="#the-tidy-text-format" id="toc-the-tidy-text-format" class="nav-link active" data-scroll-target="#the-tidy-text-format">1 The tidy text format</a></li>
   </ul>
 </nav>
 </div>
@@ -103,19 +102,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="test" class="level1">
-<h1>Test!</h1>
-</section>
-<section id="something-else" class="level1">
-<h1>Something else</h1>
-<p>Check out our cool plot in Figure <a href="#fig-pressureplot">Figure&nbsp;1</a>!</p>
+<section id="the-tidy-text-format" class="level1">
+<h1>1 The tidy text format</h1>
+<p>Here is a little plot the words that occur more than 600 times in Bhagadvagita – Figure <strong>?@fig-line-plot</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bhaga_text <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">600</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder</span>(word, n)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(n, word)) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-pressureplot" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-word-count" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="test-for-aryan_files/figure-html/fig-pressureplot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: This is the greatest plot in the world!</figcaption>
+<p><img src="test-for-aryan_files/figure-html/fig-word-count-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: The words with count larger than 600 in Bhagadvagita! Yay!</figcaption>
 </figure>
 </div>
 </div>
