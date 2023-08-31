@@ -1,0 +1,19 @@
+---
+title: "test-quarto"
+format: 
+  html:
+    toc: true
+editor: visual
+---
+
+# Test!
+
+# Something else
+
+Check out our cool plot in Figure @fig-pressureplot!
+
+```{r}
+#| label: fig-pressureplot
+#| fig-cap: "This is the greatest plot in the world!"
+plot(pressure)
+```
